@@ -66,7 +66,7 @@ static uint16_t sbusStateFlags = 0;
 
 #define SBUS_FRAME_BEGIN_BYTE 0x0F
 
-#define SBUS_BAUDRATE 100000
+#define SBUS_BAUDRATE 115200
 
 #if !defined(SBUS_PORT_OPTIONS)
 #define SBUS_PORT_OPTIONS (SERIAL_STOPBITS_2 | SERIAL_PARITY_EVEN)
@@ -130,11 +130,14 @@ static void sbusDataReceive(uint16_t c)
 
     int32_t sbusFrameTime = now - sbusFrameStartAt;
 
+    // If it's been too long, start a new frame
     if (sbusFrameTime > (long)(SBUS_TIME_NEEDED_PER_FRAME + 500)) {
         sbusFramePosition = 0;
     }
 
+    // If we're at the start
     if (sbusFramePosition == 0) {
+        // If it's not a frame begin byte, discard
         if (c != SBUS_FRAME_BEGIN_BYTE) {
             return;
         }
