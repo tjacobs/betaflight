@@ -320,7 +320,7 @@ bool isMotorProtocolDshot(void) {
 #endif
 }
 
-// Add here scaled ESC outputs for digital protol
+// Add here scaled ESC outputs for digital protocol
 void initEscEndpoints(void) {
 #ifdef USE_DSHOT
     if (isMotorProtocolDshot()) {
@@ -479,6 +479,7 @@ void mixTable(pidProfile_t *pidProfile)
     if (feature(FEATURE_3D)) {
         if (!ARMING_FLAG(ARMED)) throttlePrevious = rxConfig()->midrc; // When disarmed set to mid_rc. It always results in positive direction after arming.
 
+        // If throttle less than midpoint
         if ((rcCommand[THROTTLE] <= (rxConfig()->midrc - flight3DConfig()->deadband3d_throttle))) { // Out of band handling
             motorOutputMax = deadbandMotor3dLow;
             motorOutputMin = motorOutputLow;
@@ -486,18 +487,24 @@ void mixTable(pidProfile_t *pidProfile)
             throttle = rcCommand[THROTTLE] - rxConfig()->mincheck;
             currentThrottleInputRange = rcCommandThrottleRange3dLow;
             if(isMotorProtocolDshot()) mixerInversion = true;
+
+        // If throttle more than midpoint
         } else if (rcCommand[THROTTLE] >= (rxConfig()->midrc + flight3DConfig()->deadband3d_throttle)) { // Positive handling
             motorOutputMax = motorOutputHigh;
             motorOutputMin = deadbandMotor3dHigh;
             throttlePrevious = rcCommand[THROTTLE];
             throttle = rcCommand[THROTTLE] - rxConfig()->midrc - flight3DConfig()->deadband3d_throttle;
             currentThrottleInputRange = rcCommandThrottleRange3dHigh;
+
+        // If in throttle deadband, and if throttle previously less than midpoint
         } else if ((throttlePrevious <= (rxConfig()->midrc - flight3DConfig()->deadband3d_throttle)))  { // Deadband handling from negative to positive
             motorOutputMax = deadbandMotor3dLow;
             motorOutputMin = motorOutputLow;
             throttle = rxConfig()->midrc - flight3DConfig()->deadband3d_throttle;
             currentThrottleInputRange = rcCommandThrottleRange3dLow;
             if(isMotorProtocolDshot()) mixerInversion = true;
+
+        // If in throttle deadband, and if throttle previously more than midpoint
         } else {  // Deadband handling from positive to negative
             motorOutputMax = motorOutputHigh;
             motorOutputMin = deadbandMotor3dHigh;
@@ -583,6 +590,12 @@ void mixTable(pidProfile_t *pidProfile)
             }
         }
     }
+
+
+    motor[0] = rcRaw[0];
+    motor[1] = rcRaw[1];
+    motor[2] = rcRaw[2];
+    motor[3] = rcRaw[3];
 
     // Disarmed mode
     if (!ARMING_FLAG(ARMED)) {
