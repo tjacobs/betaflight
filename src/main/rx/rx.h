@@ -174,3 +174,6 @@ void suspendRxSignal(void);
 void resumeRxSignal(void);
 
 uint16_t rxGetRefreshRate(void);
+
+extern int16_t rcRaw[MAX_SUPPORTED_RC_CHANNEL_COUNT];     // interval [1000;2000]
+
