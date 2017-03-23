@@ -591,6 +591,8 @@ void mixTable(pidProfile_t *pidProfile)
         }
     }
 
+    //float a = acc.accSmooth[Y];
+    //float g = gyro.gyroADCf[X];
 
     motor[0] = rcRaw[0];
     motor[1] = rcRaw[1];
