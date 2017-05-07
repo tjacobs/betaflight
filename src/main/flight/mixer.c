@@ -659,19 +659,11 @@ void mixTable(pidProfile_t *pidProfile)
     motor[7] = rcRaw[7];
 
     // Disarmed mode
-<<<<<<< HEAD
 //    if (!ARMING_FLAG(ARMED)) {
-//        for (i = 0; i < motorCount; i++) {
+//        for (int i = 0; i < motorCount; i++) {
 //            motor[i] = motor_disarmed[i];
 //        }
 //    }
-=======
-    if (!ARMING_FLAG(ARMED)) {
-        for (int i = 0; i < motorCount; i++) {
-            motor[i] = motor_disarmed[i];
-        }
-    }
->>>>>>> betaflight/master
 }
 
 uint16_t convertExternalToMotor(uint16_t externalValue)
