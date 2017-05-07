@@ -21,14 +21,11 @@
 
 #define USBD_PRODUCT_STRING "AnyFCF7"
 
-#define USE_DSHOT
-#define USE_ESC_SENSOR
-
 #define LED0   PB7
 #define LED1   PB6
 
-//#define BEEPER   PB2
-//#define BEEPER_INVERTED
+#define BEEPER   PB2 // Unused pin, can be mapped to elsewhere
+#define BEEPER_INVERTED
 
 #define MPU6000_CS_PIN        PA4
 #define MPU6000_SPI_INSTANCE  SPI1
@@ -142,7 +139,6 @@
 
 #define ENABLE_BLACKBOX_LOGGING_ON_SDCARD_BY_DEFAULT
 
-#define DEFAULT_FEATURES        (FEATURE_BLACKBOX)
 #define DEFAULT_RX_FEATURE      FEATURE_RX_SERIAL
 #define SERIALRX_PROVIDER       SERIALRX_SBUS
 

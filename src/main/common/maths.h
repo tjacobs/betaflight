@@ -76,6 +76,7 @@ typedef union {
     fp_angles_def angles;
 } fp_angles_t;
 
+int gcd(int num, int denom);
 float powerf(float base, int exp);
 int32_t applyDeadband(int32_t value, int32_t deadband);
 
@@ -85,7 +86,7 @@ float devVariance(stdev_t *dev);
 float devStandardDeviation(stdev_t *dev);
 float degreesToRadians(int16_t degrees);
 
-int scaleRange(int x, int srcMin, int srcMax, int destMin, int destMax);
+int scaleRange(int x, int srcFrom, int srcTo, int destFrom, int destTo);
 
 void normalizeV(struct fp_vector *src, struct fp_vector *dest);
 

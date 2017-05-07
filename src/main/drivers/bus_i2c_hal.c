@@ -20,11 +20,11 @@
 
 #include <platform.h>
 
-#include "io.h"
-#include "system.h"
+#include "drivers/io.h"
+#include "drivers/system.h"
 
-#include "bus_i2c.h"
-#include "nvic.h"
+#include "drivers/bus_i2c.h"
+#include "drivers/nvic.h"
 #include "io_impl.h"
 #include "rcc.h"
 
@@ -234,7 +234,6 @@ void i2cInit(I2CDevice device)
         IOConfigGPIO(sda, IOCFG_AF_OD);
     #endif
     // Init I2C peripheral
-    HAL_I2C_DeInit(&i2cHandle[device].Handle);
 
     i2cHandle[device].Handle.Instance             = i2cHardwareMap[device].dev;
     /// TODO: HAL check if I2C timing is correct
