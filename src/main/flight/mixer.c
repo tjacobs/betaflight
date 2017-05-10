@@ -649,21 +649,21 @@ void mixTable(pidProfile_t *pidProfile)
     //float a = acc.accSmooth[Y];
     //float g = gyro.gyroADCf[X];
 
-    motor[0] = rcRaw[0];
-    motor[1] = rcRaw[1];
-    motor[2] = rcRaw[2];
-    motor[3] = rcRaw[3];
-    motor[4] = rcRaw[4];
-    motor[5] = rcRaw[5];
-    motor[6] = rcRaw[6];
-    motor[7] = rcRaw[7];
+//    motor[0] = rcRaw[0];
+//    motor[1] = rcRaw[1];
+//    motor[2] = rcRaw[2];
+//    motor[3] = rcRaw[3];
+//    motor[4] = rcRaw[4];
+//    motor[5] = rcRaw[5];
+//    motor[6] = rcRaw[6];
+//    motor[7] = rcRaw[7];
 
     // Disarmed mode
-//    if (!ARMING_FLAG(ARMED)) {
-//        for (int i = 0; i < motorCount; i++) {
-//            motor[i] = motor_disarmed[i];
-//        }
-//    }
+    if (!ARMING_FLAG(ARMED)) {
+        for (int i = 0; i < motorCount; i++) {
+            motor[i] = motor_disarmed[i];
+        }
+    }
 }
 
 uint16_t convertExternalToMotor(uint16_t externalValue)
